@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
-import { TextField, Button, Link, Container, Typography, Box, Alert } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setAuthenticated } from '../../store/slices/todoSlice';
+import React, { useState } from "react";
+import {
+  TextField,
+  Button,
+  Link,
+  Container,
+  Typography,
+  Box,
+  Alert,
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../store/slices/authSlice";
 
 export default function SignIn() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [alert, setAlert] = useState({ type: '', message: '' });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState({ type: "", message: "" });
   const users = useSelector((state) => state.data.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,43 +26,40 @@ export default function SignIn() {
       (user) => user.username === username && user.password === password
     );
 
-    if (user) {
-      setAlert({ type: 'success', message: 'Login successful!' });
-      dispatch(setAuthenticated(true));
+    console.log("User:", user); // Log the user object
+
+    if (user && user.id) {
+      setAlert({ type: "success", message: "Login successful!" });
+      dispatch(login(user.id));
       setTimeout(() => {
-        navigate('/');
+        navigate("/");
       }, 1000);
     } else {
-      setAlert({ type: 'error', message: 'Invalid username or password' });
+      setAlert({ type: "error", message: "Invalid username or password" });
     }
   };
 
   return (
-    <Container 
-      maxWidth="sm" 
-      sx={{ 
-        mt: 8, 
-        boxShadow: 3, 
-        borderRadius: 2, 
+    <Container
+      maxWidth="sm"
+      sx={{
+        mt: 8,
+        boxShadow: 3,
+        borderRadius: 2,
         p: 4,
-        bgcolor: 'background.paper'
+        bgcolor: "background.paper",
       }}
     >
-      <Box 
-        display="flex" 
-        flexDirection="column" 
-        alignItems="center" 
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
         justifyContent="center"
       >
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-        <Box 
-          component="form" 
-          noValidate 
-          sx={{ mt: 1 }}
-          onSubmit={handleSignIn}
-        >
+        <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSignIn}>
           <TextField
             margin="normal"
             required

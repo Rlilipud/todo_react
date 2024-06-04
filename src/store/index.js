@@ -1,28 +1,27 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { 
-  FLUSH, 
-  PAUSE, 
-  PERSIST, 
-  PURGE, 
-  REGISTER, 
-  REHYDRATE, 
-  persistReducer, 
-  persistStore 
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { createFilter } from 'redux-persist-transform-filter';
-import todosReducer from './slices/todoSlice';
-
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import todosReducer from "./slices/todoSlice";
+import authReducer from "./slices/authSlice";
 
 const rootReducer = combineReducers({
   data: todosReducer,
+  auth: authReducer,
 });
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-  blacklist: ['data.email'], 
-  whitelist: ['data'], 
+  whitelist: ["data", "auth"], // Add auth to whitelist to persist authentication state
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

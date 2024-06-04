@@ -7,7 +7,7 @@ import EnterTask from "./EnterTask";
 import TaskCard from "./TaskCard";
 
 export default function CreateTask() {
-  const todos = useSelector((state) => state.todos);
+  const todos = useSelector((state) => console.log(state));
 
   const [alertType, setAlertType] = useState("error");
   const [showAlert, setShowAlert] = useState(false);

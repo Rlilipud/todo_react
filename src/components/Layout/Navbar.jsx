@@ -12,10 +12,10 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router";
-import LogoutIcon from '@mui/icons-material/Logout';
-import { Link} from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { clearAuthentication } from "../../store/slices/todoSlice";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/slices/authSlice";
 
 const navItems = [
   { title: "Home", url: "" },
@@ -33,8 +33,8 @@ function Navbar(props) {
   };
 
   const handleLogout = () => {
-    dispatch(clearAuthentication()); // Dispatch action to clear authentication state
-    navigate('/signin'); // Redirect to sign-in page
+    dispatch(logout()); // Dispatch action to clear authentication state
+    navigate("/signin"); // Redirect to sign-in page
   };
 
   const open = Boolean(anchorEl);
@@ -81,14 +81,20 @@ function Navbar(props) {
               aria-describedby={id}
               type="button"
               onClick={handleClick}
-              sx={{ marginLeft:'16px' }}
+              sx={{ marginLeft: "16px" }}
             >
               user name
             </TriggerButton>
             <Popper id={id} open={open} anchorEl={anchorEl}>
               <StyledPopperDiv>
-                <Button onClick={handleLogout}> {/* Handle logout */}
-                  <Link href="/signin" variant="body2" sx={{ mr:1 , textDecoration:'none' }}>
+                <Button onClick={handleLogout}>
+                  {" "}
+                  {/* Handle logout */}
+                  <Link
+                    href="/signin"
+                    variant="body2"
+                    sx={{ mr: 1, textDecoration: "none" }}
+                  >
                     {"Logout"}
                   </Link>
                   <LogoutIcon />
@@ -103,7 +109,6 @@ function Navbar(props) {
 }
 
 Navbar.propTypes = {
-
   window: PropTypes.func,
 };
 

@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  TextField
-} from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, editTodo } from "../../store/slices/todoSlice"; 
+import { addTodo, editTodo } from "../../store/slices/todoSlice";
 
 export default function EnterTask() {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.auth?.userId); 
+  const userId = useSelector((state) => state.auth.userId);
 
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskDescription, setNewTaskDescription] = useState("");
@@ -18,11 +14,11 @@ export default function EnterTask() {
   const [editingTaskId, setEditingTaskId] = useState(null);
 
   const handleCreateTask = () => {
-    if (newTaskTitle.length > 0 && newTaskDescription.length > 0) { // Changed condition to check for length > 0 instead of > 1
+    if (newTaskTitle.length > 0 && newTaskDescription.length > 0) {
       if (editingTaskId !== null) {
         dispatch(
           editTodo({
-            userId: userId, // Corrected to use userId obtained from useSelector
+            userId, // Add userId to the payload
             id: editingTaskId,
             title: newTaskTitle,
             task: newTaskDescription,
@@ -33,11 +29,13 @@ export default function EnterTask() {
       } else {
         dispatch(
           addTodo({
-            userId: userId, // Corrected to use userId obtained from useSelector
-            id: Date.now(),
-            title: newTaskTitle,
-            task: newTaskDescription,
-            done: false,
+            userId, // Add userId to the payload
+            todo: {
+              id: Date.now(),
+              title: newTaskTitle,
+              task: newTaskDescription,
+              done: false,
+            },
           })
         );
       }
@@ -53,7 +51,6 @@ export default function EnterTask() {
       setAlertType("error");
     }
   };
-  
 
   return (
     <Box
