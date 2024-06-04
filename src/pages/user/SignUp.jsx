@@ -8,20 +8,19 @@ import {
   Box,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../store/slices/todoSlice"; 
+import { setUser } from "../../store/slices/todoSlice";
 
 export default function SignUp() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState(""); 
+  const [email, setEmail] = useState("");
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    const userId = generateUserId(); 
+    const userId = generateUserId();
     const userData = { username: name, password: password, userId, email };
     dispatch(setUser(userData));
-    console.log(userData);
     setName("");
     setPassword("");
     setEmail("");

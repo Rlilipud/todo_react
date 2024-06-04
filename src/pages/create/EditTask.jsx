@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { editTodo } from "../../store/slices/todoSlice";
-import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Layout/Navbar";
 
 export default function EditTask() {
@@ -12,7 +12,7 @@ export default function EditTask() {
   const users = useSelector((state) => state.data.users);
   const user = users.find((user) => user.id === userId);
   const task = user.todos.find((task) => task.id === parseInt(taskId));
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const [newTaskTitle, setNewTaskTitle] = useState(task.title);
   const [newTaskDescription, setNewTaskDescription] = useState(task.task);
@@ -27,7 +27,7 @@ export default function EditTask() {
         done: task.done,
       })
     );
-    navigate("/create"); // Navigate back to the create page
+    navigate("/create");
   };
 
   return (
@@ -40,13 +40,13 @@ export default function EditTask() {
           alignItems: "center",
           justifyContent: "center",
           height: "80vh",
-          maxWidth: "400px", // Set maximum width to control the size
-          margin: "auto", // Center horizontally
-          my: "50px", // Add margin from the top for spacing
-          p: "20px", // Add padding to the box
-          bgcolor: "background.paper", // Set background color
-          borderRadius: "10px", // Add border radius for a rounded appearance
-          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", // Add box shadow for depth
+          maxWidth: "400px",
+          margin: "auto",
+          my: "50px",
+          p: "20px",
+          bgcolor: "background.paper",
+          borderRadius: "10px",
+          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
         <Typography variant="h4" gutterBottom>

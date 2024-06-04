@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Box, Card, Stack, Typography, Divider } from "@mui/material";
 import { Done as DoneIcon, Edit as EditIcon } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { editTodo, deleteTodo, toggleDone } from "../../store/slices/todoSlice";
+import { toggleDone } from "../../store/slices/todoSlice";
 import { useNavigate } from "react-router";
 
 export default function TaskCard() {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.auth.userId); // Access userId from auth slice
+  const userId = useSelector((state) => state.auth.userId);
   const users = useSelector((state) => state.data.users);
   const user = users.find((user) => user.id === userId);
   const todos = user ? user.todos : [];
-
-  useEffect(() => {
-    console.log("userId:", userId);
-  }, [userId]);
-
-  const [newTaskTitle, setNewTaskTitle] = useState("");
-  const [newTaskDescription, setNewTaskDescription] = useState("");
-  const [editingTaskId, setEditingTaskId] = useState(null);
 
   const navigate = useNavigate();
 

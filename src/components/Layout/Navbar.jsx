@@ -23,97 +23,6 @@ const navItems = [
   { title: "Done Tasks", url: "done" },
 ];
 
-function Navbar(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const dispatch = useDispatch(); // Initialize dispatch
-  const navigate = useNavigate();
-
-  const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
-
-  const handleLogout = () => {
-    dispatch(logout()); // Dispatch action to clear authentication state
-    navigate("/signin"); // Redirect to sign-in page
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popper" : undefined;
-
-  function handlePage(url) {
-    navigate(url);
-  }
-
-  return (
-    <AppBar component="nav" sx={{ background: "#074955" }}>
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          sx={{ mr: 2, display: { sm: "none" } }}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{
-            flexGrow: 1,
-            display: { xs: "none", sm: "block" },
-            fontWeight: "600",
-          }}
-        >
-          TODO
-        </Typography>
-        <Box sx={{ display: { xs: "none", sm: "block" }, display: "flex" }}>
-          {navItems.map((item) => (
-            <Button
-              key={item.title}
-              onClick={() => handlePage(`/${item.url}`)}
-              sx={{ color: "#FFFFFF", fontSize: "small", fontWeight: "700" }}
-            >
-              {item.title}
-            </Button>
-          ))}
-          <div>
-            <TriggerButton
-              aria-describedby={id}
-              type="button"
-              onClick={handleClick}
-              sx={{ marginLeft: "16px" }}
-            >
-              user name
-            </TriggerButton>
-            <Popper id={id} open={open} anchorEl={anchorEl}>
-              <StyledPopperDiv>
-                <Button onClick={handleLogout}>
-                  {" "}
-                  {/* Handle logout */}
-                  <Link
-                    href="/signin"
-                    variant="body2"
-                    sx={{ mr: 1, textDecoration: "none" }}
-                  >
-                    {"Logout"}
-                  </Link>
-                  <LogoutIcon />
-                </Button>
-              </StyledPopperDiv>
-            </Popper>
-          </div>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
-}
-
-Navbar.propTypes = {
-  window: PropTypes.func,
-};
-
-export default Navbar;
-
 const blue = {
   50: "#F0F7FF",
   100: "#C2E0FF",
@@ -204,3 +113,92 @@ const StyledPopperDiv = styled("div")(
     margin-top: 16px;
   `
 );
+function Navbar() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/signin");
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popper" : undefined;
+
+  function handlePage(url) {
+    navigate(url);
+  }
+
+  return (
+    <AppBar component="nav" sx={{ background: "#074955" }}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          sx={{ mr: 2, display: { sm: "none" } }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{
+            flexGrow: 1,
+            display: { xs: "none", sm: "block" },
+            fontWeight: "600",
+          }}
+        >
+          TODO
+        </Typography>
+        <Box sx={{ display: { xs: "none", sm: "block" }, display: "flex" }}>
+          {navItems.map((item) => (
+            <Button
+              key={item.title}
+              onClick={() => handlePage(`/${item.url}`)}
+              sx={{ color: "#FFFFFF", fontSize: "small", fontWeight: "700" }}
+            >
+              {item.title}
+            </Button>
+          ))}
+          <div>
+            <TriggerButton
+              aria-describedby={id}
+              type="button"
+              onClick={handleClick}
+              sx={{ marginLeft: "16px" }}
+            >
+              user name
+            </TriggerButton>
+            <Popper id={id} open={open} anchorEl={anchorEl}>
+              <StyledPopperDiv>
+                <Button onClick={handleLogout}>
+                  {" "}
+                  <Link
+                    href="/signin"
+                    variant="body2"
+                    sx={{ mr: 1, textDecoration: "none" }}
+                  >
+                    {"Logout"}
+                  </Link>
+                  <LogoutIcon />
+                </Button>
+              </StyledPopperDiv>
+            </Popper>
+          </div>
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
+}
+
+Navbar.propTypes = {
+  window: PropTypes.func,
+};
+
+export default Navbar;

@@ -1,13 +1,28 @@
 import React from "react";
-import { Box, Card, Typography } from "@mui/material";
-import { TaskAlt as TaskAltIcon } from "@mui/icons-material";
+import { Box, Card, Typography, Button } from "@mui/material";
+import {
+  TaskAlt as TaskAltIcon,
+  Delete as DeleteIcon,
+} from "@mui/icons-material";
 import Navbar from "../components/Layout/Navbar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteTodo } from "../store/slices/todoSlice";
 
 export default function Done() {
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.userId);
+
   const doneTasks = useSelector((state) =>
-    state.data.users.flatMap((user) => user.todos.filter((task) => task.done))
+    state.data.users
+      .filter((user) => user.id === userId)
+      .flatMap((user) => user.todos.filter((task) => task.done))
   );
+  const state = useSelector((state) => state);
+  console.log(state);
+
+  const handleDeleteTask = (taskId) => {
+    dispatch(deleteTodo({ userId, todoId: taskId }));
+  };
 
   return (
     <>
@@ -42,6 +57,12 @@ export default function Done() {
                   {task.task}
                 </Typography>
               </Box>
+              <Button
+                onClick={() => handleDeleteTask(task.id)}
+                sx={{ color: "error.main", width: "100%" }}
+              >
+                Delete Task <DeleteIcon />
+              </Button>
             </Card>
           ))
         ) : (

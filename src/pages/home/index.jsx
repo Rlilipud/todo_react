@@ -4,7 +4,7 @@ import { Box, Typography, Paper } from "@mui/material";
 import Navbar from "../../components/Layout/Navbar";
 import "./index.css";
 
-function HomePage(props) {
+function HomePage() {
   return (
     <Box
       sx={{
@@ -47,10 +47,6 @@ function HomePage(props) {
 }
 
 HomePage.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 

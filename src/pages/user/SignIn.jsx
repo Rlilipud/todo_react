@@ -26,8 +26,6 @@ export default function SignIn() {
       (user) => user.username === username && user.password === password
     );
 
-    console.log("User:", user); // Log the user object
-
     if (user && user.id) {
       setAlert({ type: "success", message: "Login successful!" });
       dispatch(login(user.id));

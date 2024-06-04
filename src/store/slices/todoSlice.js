@@ -2,10 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   users: [],
-  auth: {
-    isAuthenticated: false,
-    userId: null,
-  },
 };
 
 export const todosSlice = createSlice({
