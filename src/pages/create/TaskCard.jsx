@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Box, Card, Stack, Typography, Divider, Alert } from "@mui/material";
+import { Box, Card, Stack, Typography, Divider } from "@mui/material";
 import { Done as DoneIcon, Edit as EditIcon } from "@mui/icons-material";
-import Navbar from "../../components/Layout/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTodo,
@@ -11,7 +10,7 @@ import {
 } from "../../store/slices/todoSlice";
 
 export default function TaskCard() {
-  const todos = useSelector((state) => state.todos);
+  const todos = useSelector((state) => state.todos); // Assuming 'todos' is the state variable where your todos are stored
   const dispatch = useDispatch();
 
   const [newTaskTitle, setNewTaskTitle] = useState("");
@@ -19,7 +18,7 @@ export default function TaskCard() {
   const [editingTaskId, setEditingTaskId] = useState(null);
 
   const handleTaskEdit = (taskId) => {
-    const taskToEdit = todos.todos.find((task) => task.id === taskId);
+    const taskToEdit = todos.find((task) => task.id === taskId);
     setNewTaskTitle(taskToEdit.title);
     setNewTaskDescription(taskToEdit.task);
     setEditingTaskId(taskId);
@@ -32,8 +31,7 @@ export default function TaskCard() {
   return (
     <>
       {todos &&
-        todos.todos &&
-        todos.todos.map((task) =>
+        todos.map((task) =>
           !task.done ? (
             <Card key={task.id} variant="outlined" sx={{ minWidth: 360 }}>
               <Box sx={{ p: 2, minHeight: 100 }}>

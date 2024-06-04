@@ -1,27 +1,40 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from 'redux-persist';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { 
+  FLUSH, 
+  PAUSE, 
+  PERSIST, 
+  PURGE, 
+  REGISTER, 
+  REHYDRATE, 
+  persistReducer, 
+  persistStore 
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
- // defaults to localStorage for web
+import { createFilter } from 'redux-persist-transform-filter';
+import todosReducer from './slices/todoSlice';
 
-import todoSlice from './slices/todoSlice';
+
+const rootReducer = combineReducers({
+  data: todosReducer,
+});
 
 const persistConfig = {
-  key: 'todo task',
+  key: 'root',
   storage,
+  blacklist: ['data.email'], 
+  whitelist: ['data'], 
 };
 
-const persistedReducer = persistReducer(persistConfig, todoSlice);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    todos: persistedReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);

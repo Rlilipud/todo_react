@@ -6,7 +6,7 @@ import {
   Paper,
 } from "@mui/material";
 import Navbar from "../../components/Layout/Navbar";
-import './home.css';
+import './index.css';
 import { Button } from "bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment } from "../../store/slices/todoSlice";

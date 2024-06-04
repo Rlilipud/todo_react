@@ -9,7 +9,7 @@ import Navbar from "../components/Layout/Navbar";
 import { useSelector } from "react-redux";
 
 export default function Done() {
-  const doneTasks = useSelector(state => state.todos.todos.filter(task => task.done));
+  const doneTasks = useSelector(state => state.data.users.filter(task => task.done));
 
 
   return (

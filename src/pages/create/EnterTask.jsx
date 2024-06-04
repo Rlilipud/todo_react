@@ -9,6 +9,7 @@ import { addTodo, editTodo } from "../../store/slices/todoSlice";
 
 export default function EnterTask() {
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth?.userId); 
 
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskDescription, setNewTaskDescription] = useState("");
@@ -17,10 +18,11 @@ export default function EnterTask() {
   const [editingTaskId, setEditingTaskId] = useState(null);
 
   const handleCreateTask = () => {
-    if (newTaskTitle.length > 1 && newTaskDescription.length > 1) {
+    if (newTaskTitle.length > 0 && newTaskDescription.length > 0) { // Changed condition to check for length > 0 instead of > 1
       if (editingTaskId !== null) {
         dispatch(
           editTodo({
+            userId: userId, // Corrected to use userId obtained from useSelector
             id: editingTaskId,
             title: newTaskTitle,
             task: newTaskDescription,
@@ -28,34 +30,30 @@ export default function EnterTask() {
           })
         );
         setEditingTaskId(null);
-
-        setAlertType("success");
-        setShowAlert(true);
-        setTimeout(() => {
-          setShowAlert(false);
-        }, 3000);
       } else {
         dispatch(
           addTodo({
+            userId: userId, // Corrected to use userId obtained from useSelector
             id: Date.now(),
             title: newTaskTitle,
             task: newTaskDescription,
             done: false,
           })
         );
-        setAlertType("success");
-        setShowAlert(true);
-        setTimeout(() => {
-          setShowAlert(false);
-        }, 3000);
       }
       setNewTaskTitle("");
       setNewTaskDescription("");
+      setAlertType("success");
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
     } else {
       setShowAlert(true);
       setAlertType("error");
     }
   };
+  
 
   return (
     <Box
