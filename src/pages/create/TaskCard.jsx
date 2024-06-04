@@ -3,6 +3,7 @@ import { Box, Card, Stack, Typography, Divider } from "@mui/material";
 import { Done as DoneIcon, Edit as EditIcon } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { editTodo, deleteTodo, toggleDone } from "../../store/slices/todoSlice";
+import { useNavigate } from "react-router";
 
 export default function TaskCard() {
   const dispatch = useDispatch();
@@ -19,11 +20,10 @@ export default function TaskCard() {
   const [newTaskDescription, setNewTaskDescription] = useState("");
   const [editingTaskId, setEditingTaskId] = useState(null);
 
+  const navigate = useNavigate();
+
   const handleTaskEdit = (taskId) => {
-    const taskToEdit = todos.find((task) => task.id === taskId);
-    setNewTaskTitle(taskToEdit.title);
-    setNewTaskDescription(taskToEdit.task);
-    setEditingTaskId(taskId);
+    navigate(`/edit-task/${taskId}`);
   };
 
   const handleTaskDone = (taskId) => {
@@ -66,7 +66,7 @@ export default function TaskCard() {
                 display: "flex",
                 color: "#66a80f",
                 cursor: "pointer",
-                "&:hover": { backgroundColor: "#74b816", color: "#fff" },
+                "&:hover": { backgroundColor: "#7ba14aa1", color: "#3f3f3f" },
               }}
               onClick={() => handleTaskDone(task.id)}
             >

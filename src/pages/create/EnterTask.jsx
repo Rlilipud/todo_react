@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Snackbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { addTodo, editTodo } from "../../store/slices/todoSlice";
 
@@ -9,27 +9,28 @@ export default function EnterTask() {
 
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskDescription, setNewTaskDescription] = useState("");
-  const [alertType, setAlertType] = useState("error");
-  const [showAlert, setShowAlert] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState(null);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleCreateTask = () => {
     if (newTaskTitle.length > 0 && newTaskDescription.length > 0) {
       if (editingTaskId !== null) {
         dispatch(
           editTodo({
-            userId, // Add userId to the payload
+            userId,
             id: editingTaskId,
             title: newTaskTitle,
             task: newTaskDescription,
             done: false,
           })
         );
+        setAlertMessage("Task updated successfully.");
         setEditingTaskId(null);
       } else {
         dispatch(
           addTodo({
-            userId, // Add userId to the payload
+            userId,
             todo: {
               id: Date.now(),
               title: newTaskTitle,
@@ -38,18 +39,19 @@ export default function EnterTask() {
             },
           })
         );
+        setAlertMessage("Task created successfully.");
       }
       setNewTaskTitle("");
       setNewTaskDescription("");
-      setAlertType("success");
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 3000);
+      setAlertOpen(true);
     } else {
-      setShowAlert(true);
-      setAlertType("error");
+      setAlertMessage("Please fill out both the title and description fields.");
+      setAlertOpen(true);
     }
+  };
+
+  const handleCloseAlert = () => {
+    setAlertOpen(false);
   };
 
   return (
@@ -62,40 +64,32 @@ export default function EnterTask() {
       }}
     >
       <TextField
-        color="success"
         label="Title"
         id="fullWidth"
         size="small"
         value={newTaskTitle}
         onChange={(e) => setNewTaskTitle(e.target.value)}
         InputProps={{
-          style: {
-            color: "#074955",
-            width: "400px",
-            outlineColor: "red",
-          },
+          style: { width: "400px" },
         }}
       />
       <TextField
-        color="success"
         label="Enter your Task ..."
         id="fullWidth"
         size="small"
         value={newTaskDescription}
         onChange={(e) => setNewTaskDescription(e.target.value)}
-        InputProps={{ style: { color: "#074955", width: "400px" } }}
+        InputProps={{ style: { width: "400px" } }}
       />
-      <Button
-        variant="contained"
-        sx={{
-          ml: "8px",
-          background: "#74b816",
-          "&:hover": { backgroundColor: "#66a80f" },
-        }}
-        onClick={handleCreateTask}
-      >
+      <Button variant="contained" onClick={handleCreateTask}>
         {editingTaskId !== null ? "Update Task" : "Create Task"}
       </Button>
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseAlert}
+        message={alertMessage}
+      />
     </Box>
   );
 }

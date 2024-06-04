@@ -15,7 +15,7 @@ export default function Done() {
       <Box
         sx={{
           marginTop: "64px",
-          background: "#e9fac8",
+          background: "#fafcf6",
           display: "grid",
           justifyItems: "center",
           alignItems: "start",
