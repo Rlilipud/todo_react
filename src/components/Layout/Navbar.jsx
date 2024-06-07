@@ -14,7 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 
 const navItems = [
@@ -118,6 +118,12 @@ function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const userId = useSelector((state) => state.auth.userId);
+  const user = useSelector((state) => state.data.users);
+  const username = user.map((item) =>
+    item.id === userId ? item.username : ""
+  );
+
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
@@ -173,7 +179,7 @@ function Navbar() {
               onClick={handleClick}
               sx={{ marginLeft: "16px" }}
             >
-              user name
+              {username}
             </TriggerButton>
             <Popper id={id} open={open} anchorEl={anchorEl}>
               <StyledPopperDiv>
