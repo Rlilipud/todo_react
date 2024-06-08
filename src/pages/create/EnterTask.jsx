@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button, TextField, Snackbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, editTodo } from "../../store/slices/todoSlice";
+import { addTodo } from "../../store/slices/todoSlice";
 
 export default function EnterTask() {
   const dispatch = useDispatch();
@@ -9,38 +9,23 @@ export default function EnterTask() {
 
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [newTaskDescription, setNewTaskDescription] = useState("");
-  const [editingTaskId, setEditingTaskId] = useState(null);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   const handleCreateTask = () => {
     if (newTaskTitle.length > 0 && newTaskDescription.length > 0) {
-      if (editingTaskId !== null) {
-        dispatch(
-          editTodo({
-            userId,
-            id: editingTaskId,
+      dispatch(
+        addTodo({
+          userId,
+          todo: {
+            id: Date.now(),
             title: newTaskTitle,
             task: newTaskDescription,
             done: false,
-          })
-        );
-        setAlertMessage("Task updated successfully.");
-        setEditingTaskId(null);
-      } else {
-        dispatch(
-          addTodo({
-            userId,
-            todo: {
-              id: Date.now(),
-              title: newTaskTitle,
-              task: newTaskDescription,
-              done: false,
-            },
-          })
-        );
-        setAlertMessage("Task created successfully.");
-      }
+          },
+        })
+      );
+      setAlertMessage("Task created successfully.");
       setNewTaskTitle("");
       setNewTaskDescription("");
       setAlertOpen(true);
@@ -82,7 +67,7 @@ export default function EnterTask() {
         InputProps={{ style: { width: "400px" } }}
       />
       <Button variant="contained" onClick={handleCreateTask}>
-        {editingTaskId !== null ? "Update Task" : "Create Task"}
+        Create Task
       </Button>
       <Snackbar
         open={alertOpen}

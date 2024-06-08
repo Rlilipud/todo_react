@@ -119,10 +119,10 @@ function Navbar() {
   const navigate = useNavigate();
 
   const userId = useSelector((state) => state.auth.userId);
-  const user = useSelector((state) => state.data.users);
-  const username = user.map((item) =>
-    item.id === userId ? item.username : ""
-  );
+  const users = useSelector((state) => state.data.users);
+  const user = users.find((item) => item.id === userId);
+  const username = user ? user.username : "";
+
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);

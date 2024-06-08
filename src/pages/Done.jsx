@@ -14,11 +14,9 @@ export default function Done() {
 
   const doneTasks = useSelector((state) =>
     state.data.users
-      .filter((user) => user.id === userId)
-      .flatMap((user) => user.todos.filter((task) => task.done))
+      .find((user) => user.id === userId)
+      ?.todos.flatMap((task) => task.done ? [task] : [])
   );
-  const state = useSelector((state) => state);
-  console.log(state);
 
   const handleDeleteTask = (taskId) => {
     dispatch(deleteTodo({ userId, todoId: taskId }));
