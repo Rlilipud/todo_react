@@ -2,6 +2,84 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Folder Structure
+
+After you create a new project, you will see the following folder structure:
+
+TODO/
+├── node_modules/
+├── public/
+│ ├── index.html
+├── src/
+│ ├── assets/
+│ │ └── images/
+│ ├── components/
+│ │ └── Layout/
+│ │ ├── Navbar.jsx
+│ │ ├── ProtectedRoute.jsx
+│ ├── pages/
+│ │ └── create/
+│ │ ├── EditTask.jsx
+│ │ ├── EnterTask.jsx
+│ │ ├── index.jsx
+│ │ ├── TaskCard.jsx
+│ │ └── home/
+│ │ ├── index.css
+│ │ ├── index.jsx
+│ │ └── user/
+│ │ ├── SignIn.jsx
+│ │ ├── SignUp.jsx
+│ │ └── Done.jsx
+│ ├── store/
+│ │ └── slices/
+│ │ ├── authSlice.js
+│ │ ├── todoSlice.js
+│ │ └── index.js
+│ ├── App.js
+│ ├── index.css
+│ ├── index.js
+│ ├── reportWebVitals.js
+├── .gitignore
+├── package-lock.json
+├── package.json
+├── README.md
+
+- `node_modules/`: Contains all the dependencies of your project.
+- `public/`: Contains static assets and the main HTML file.
+  - `index.html`: The main HTML file.
+- `src/`: Contains the source code of your application.
+  - `assets/`: Contains assets like images, fonts, etc.
+  - `components/`: Contains React components.
+    - `Layout/`: Layout components.
+      - `Navbar.jsx`: Navigation bar component.
+      - `ProtectedRoute.jsx`: Component for protected routes.
+  - `pages/`: Contains page components.
+    - `create/`: Components for creating tasks.
+      - `EditTask.jsx`: Edit task component.
+      - `EnterTask.jsx`: Enter task component.
+      - `index.jsx`: Index component for the create page.
+      - `TaskCard.jsx`: Task card component.
+    - `home/`: Components for the home page.
+      - `index.css`: CSS file for the home page.
+      - `index.jsx`: Main component for the home page.
+    - `user/`: Components for user-related pages.
+      - `SignIn.jsx`: Sign-in component.
+      - `SignUp.jsx`: Sign-up component.
+    - `Done.jsx`: Component for completed tasks.
+  - `store/`: Redux store setup.
+    - `slices/`: Redux slices.
+      - `authSlice.js`: Authentication slice.
+      - `todoSlice.js`: Todo slice.
+    - `index.js`: Store configuration file.
+  - `App.js`: Main App component.
+  - `index.css`: Global CSS file.
+  - `index.js`: Entry point of the React application.
+  - `reportWebVitals.js`: For measuring performance.
+- `.gitignore`: Specifies which files should be ignored by Git.
+- `package-lock.json`: Ensures consistent dependency versions.
+- `package.json`: Lists the project dependencies and scripts.
+- `README.md`: This file.
+
 ## Available Scripts
 
 In the project directory, you can run:
