@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/todoSlice";
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -97,7 +98,7 @@ export default function SignUp() {
             Sign Up
           </Button>
           <Box display="flex" justifyContent="center">
-            <Link href="/signin" variant="body2">
+            <Link component={RouterLink} to="/signin" variant="body2">
               {"Already have an account? Sign In"}
             </Link>
           </Box>

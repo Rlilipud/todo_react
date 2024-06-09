@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../store/slices/authSlice";
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
@@ -96,7 +97,7 @@ export default function SignIn() {
             Sign In
           </Button>
           <Box display="flex" justifyContent="center">
-            <Link href="/signup" variant="body2">
+            <Link component={RouterLink} to="/signup" variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Box>
