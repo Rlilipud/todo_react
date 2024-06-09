@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Folder Structure
 
 After you create a new project, you will see the following folder structure:
-
+```bash
 TODO/
 ├── node_modules/
 ├── public/
@@ -43,6 +43,7 @@ TODO/
 ├── package-lock.json
 ├── package.json
 ├── README.md
+```
 
 - `node_modules/`: Contains all the dependencies of your project.
 - `public/`: Contains static assets and the main HTML file.
